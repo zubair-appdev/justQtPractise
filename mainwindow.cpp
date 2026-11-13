@@ -155,3 +155,119 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_pushButton_loadDataFromCSV_clicked()
+{
+    QFile sensorFile;
+
+    QString fileLocation = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation)+"/sensorReadings.csv";
+
+    sensorFile.setFileName(fileLocation);
+
+    sensorFile.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Append);
+
+    sensorFile.seek(0);
+
+    if(!sensorFile.isOpen())
+    {
+        QMessageBox::warning(this,"Warning","File not opened");
+        return;
+    }
+
+    QVector<QString> fileData;
+
+    while(!sensorFile.atEnd())
+    {
+        QString readLine = sensorFile.readLine();
+        fileData.append(readLine);
+        qDebug()<<readLine;
+    }
+
+    QStandardItemModel *model = new QStandardItemModel(this);
+
+    if(fileData.isEmpty())
+    {
+        qDebug()<<"Empty Data";
+        return;
+    }
+
+    QStringList headers = fileData[0].split(',');
+    model->setHorizontalHeaderLabels(headers);
+
+    for(int i=1; i<fileData.size();i++)
+    {
+        QStringList rowData = fileData[i].split(',');
+        QList<QStandardItem*> items;
+
+        for(auto value : rowData)
+        {
+            items.append(new QStandardItem(value));
+        }
+
+        model->appendRow(items);
+    }
+
+    QModelIndex index = model->index(1,0);
+    model->setData(index,"Zubair");
+
+    model->setData(index,QBrush(Qt::red),Qt::BackgroundRole);
+
+    model->setData(index,QVariant::fromValue(static_cast<int>((Qt::AlignRight | Qt::AlignVCenter))),Qt::TextAlignmentRole);
+
+    model->setData(model->index(2,5),"Danger Value",Qt::ToolTipRole);
+
+    QFont budFont;
+
+    budFont.setBold(true);
+    budFont.setPointSize(14);
+
+    model->setData(model->index(2,4),budFont,Qt::FontRole);
+
+
+
+    QVariant retriveData = model->data(index,Qt::BackgroundRole);
+    qDebug()<<retriveData<<" :retrieved cell data";
+
+    QBrush myColor = retriveData.value<QBrush>();
+    qDebug()<<myColor<<" :myColor";
+
+    ui->tableView_custom->setModel(model);
+
+    sensorFile.write("zubair,Qt,C++,Linux,Python,Embedded,Qml,Pi,Interrupts\r\n");
+
+    qDebug()<<sensorFile.pos()<<" "<<sensorFile.size();
+
+    //Getting an item from the model
+    QStandardItem *item = model->itemFromIndex(model->index(3,3));
+    item->setCheckable(true);
+
+    model->setData(model->index(3,3),Qt::Checked,Qt::CheckStateRole);
+
+    qDebug()<<model->flags(model->index(3,3));
+
+    this->model = model;
+
+    QMetaObject::Connection connection =
+        connect(this->model,
+                &QStandardItemModel::rowsRemoved,
+                this,
+                [](const QModelIndex &parent, int first, int last)
+    {
+        qDebug() << "ROWS REMOVED SIGNAL!";
+        qDebug() << "Parent:" << parent;
+        qDebug() << "First:" << first;
+        qDebug() << "Last:" << last;
+    });
+
+    qDebug() << "Connection valid:" << bool(connection);
+
+    sensorFile.close();
+}
+
+void MainWindow::on_pushButton_deleteRow_clicked()
+{
+
+
+    QModelIndex index = ui->tableView_custom->currentIndex();
+    model->removeRow(index.row());
+}

@@ -37,6 +37,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_loadDataFromCSV_clicked();
+
+    void on_pushButton_deleteRow_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -51,5 +56,8 @@ private:
 
     QFile file;
     QTextStream out;
+
+    QStandardItemModel *model = nullptr;
+
 };
 #endif // MAINWINDOW_H

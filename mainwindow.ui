@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1092</width>
+    <height>587</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>30</x>
       <y>230</y>
-      <width>271</width>
+      <width>231</width>
       <height>211</height>
      </rect>
     </property>
@@ -37,7 +37,7 @@
    <widget class="QPushButton" name="pushButton_add">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>30</x>
       <y>500</y>
       <width>75</width>
       <height>23</height>
@@ -50,7 +50,7 @@
    <widget class="QLineEdit" name="lineEdit_name">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>30</x>
       <y>460</y>
       <width>113</width>
       <height>20</height>
@@ -63,7 +63,7 @@
    <widget class="QLineEdit" name="lineEdit_age">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>160</x>
       <y>460</y>
       <width>113</width>
       <height>20</height>
@@ -76,7 +76,7 @@
    <widget class="QPushButton" name="pushButton_delete">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>160</x>
       <y>500</y>
       <width>75</width>
       <height>23</height>
@@ -89,9 +89,9 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>310</x>
       <y>230</y>
-      <width>261</width>
+      <width>231</width>
       <height>201</height>
      </rect>
     </property>
@@ -99,11 +99,47 @@
    <widget class="QComboBox" name="comboBox_ports">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>470</x>
       <y>460</y>
       <width>69</width>
       <height>22</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView_custom">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>220</y>
+      <width>491</width>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_loadDataFromCSV">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>460</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load Data From CSV</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_deleteRow">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>460</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Row</string>
     </property>
    </widget>
   </widget>
@@ -112,7 +148,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1092</width>
      <height>21</height>
     </rect>
    </property>
