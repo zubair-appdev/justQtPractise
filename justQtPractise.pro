@@ -1,4 +1,4 @@
-QT       += core gui serialport
+QT       += core gui serialport quick qml quickwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,10 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sensortablemodel.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    sensortablemodel.h
 
 FORMS += \
     mainwindow.ui
@@ -29,3 +31,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    sensorView.qml
+
+RESOURCES += \
+    qml.qrc

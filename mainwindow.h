@@ -13,6 +13,7 @@
 #include <QDebug>
 
 #include <QStandardItemModel>
+#include <sensortablemodel.h>
 
 #include <QSerialPort>
 #include <QSerialPortInfo>
@@ -42,6 +43,8 @@ private slots:
 
     void on_pushButton_deleteRow_clicked();
 
+    void on_pushButton_customData_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -58,6 +61,8 @@ private:
     QTextStream out;
 
     QStandardItemModel *model = nullptr;
+
+    SensorTableModel *modelC  = nullptr;
 
 };
 #endif // MAINWINDOW_H

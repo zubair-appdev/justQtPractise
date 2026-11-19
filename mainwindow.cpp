@@ -1,11 +1,19 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "QQuickWidget"
+#include "QQmlContext"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    modelC = new SensorTableModel(this);
+    ui->quickWidget->rootContext()->setContextProperty("sensorModel",modelC);
+
+    ui->quickWidget->setSource(
+                QUrl("qrc:/sensorView.qml"));
 
     //1. Basic Layout
     QWidget *topWidget = new QWidget(centralWidget());
@@ -270,4 +278,14 @@ void MainWindow::on_pushButton_deleteRow_clicked()
 
     QModelIndex index = ui->tableView_custom->currentIndex();
     model->removeRow(index.row());
+}
+
+void MainWindow::on_pushButton_customData_clicked()
+{
+    ui->tableView_custom_2->setModel(modelC);
+
+    qDebug()<<modelC->rowCount()<<"###"<<modelC->columnCount();
+
+    qDebug()<<modelC->index(0,3).data().toDouble();
+
 }
